@@ -1,0 +1,43 @@
+﻿
+
+<h2>Register</h2>
+<hr>
+<br>
+
+@using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @name = "Form1" }))
+{
+    <div class="row">
+        <label> IBAN</label>
+        @Html.TextBox("IBAN", (string)ViewBag.IBAN, new { @class = "form-control input-sm disabled", @Id = "IBAN", @Style = "width:100px" })
+    </div>
+
+    <div class="row">
+        <label> First Name</label>
+        @Html.TextBox("first_name", null, new { @class = "form-control input-sm disabled", @Id = "first_name", @Style = "width:100px" })
+    </div>
+
+    <div class="row">
+        <label> Last Name</label>
+        @Html.TextBox("last_name", null, new { @class = "form-control input-sm disabled", @Id = "last_name", @Style = "width:100px" })
+    </div>
+
+    <div class="row">
+        <label> Phone no.</label>
+        @Html.TextBox("phone", null, new { @class = "form-control input-sm disabled", @Id = "phone", @Style = "width:100px" })
+    </div>
+    <div class="row">
+        <label> Password</label>
+        @Html.TextBox("password", null, new { @class = "form-control input-sm", @Id = "password", @Style = "width:100px" })
+    </div>
+
+    <div class="row">
+        <label> Double confirmed password</label>
+        @Html.TextBox("db_password", null, new { @class = "form-control input-sm", @Id = "db_password", @Style = "width:100px" })
+    </div>
+    <br>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary" id="btSave"> Save </button>
+        <button type="button" class="btn btn-danger" id="btRegist"> Clear all </button>
+    </div>
+}

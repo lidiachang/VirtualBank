@@ -1,0 +1,85 @@
+﻿@*@using HTMLHelper.Helper*@
+@model VirtualBank.Models.Customer
+<h2>Main</h2>
+<hr>
+<br>
+@if (Model != null)
+{
+    @Html.ActionLink("Deposite", "Deposite", "Customer", new { @ID = Model.Balance.Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
+    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @ID = Model.Balance.Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
+
+    <h3> Hello ! Mr. @Model.last_name </h3>
+    <h3>Balance:  0 </h3>
+    @*@Model.balance*@
+    <h3>Account Detail : </h3>
+
+    if (Model.Balance.BalanceDetails != null)
+    {
+        <div id="DataList">
+            <div class="row">
+                <div class="col-12">
+                    <div class="text-right mt-lg-3"><mark> records : @Model.Balance.BalanceDetails.Count()</mark></div>
+                    <table class="table table-sm table-condensed table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().trx_Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().trx_type)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().amount)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().created_by)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().created_dt)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().desc)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().desc_2)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var item in Model.Balance.BalanceDetails)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.trx_Id)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.trx_type)
+                                        @*@Resources.Resource.ResourceManager.GetString("" + @Html.DisplayFor(modelItem => item.trace))*@
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.created_by)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.created_dt)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.desc)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.desc_2)
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    }
+}

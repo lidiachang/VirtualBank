@@ -1,0 +1,21 @@
+﻿<h2>Login</h2>
+<hr>
+<br>
+
+@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @name = "Form1" }))
+{
+    <div class="row">
+        <label> IBAN</label>
+        @Html.TextBox("IBAN", null, new { @class = "form-control input-sm", @Id = "IBAN", @Style = "width:100px" })
+    </div>
+    <div class="row">
+        <label> Password</label>
+        @Html.TextBox("password", null, new { @class = "form-control input-sm", @Id = "password", @Style = "width:100px" })
+    </div>
+    <br>
+
+    <div class="row">
+        <button type="submit" class="btn btn-primary" id="btSave" onclick="location.href='@Url.Action("Main", "Customer", new {area="" })'"> LOGIN </button>
+        <button type="button" class="btn btn-danger" id="btRegist" onclick="location.href='@Url.Action("Register", "Login", new {area="Login" })'"> Register </button>
+    </div>
+}
