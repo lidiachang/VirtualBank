@@ -5,49 +5,49 @@
 <br>
 @if (Model != null)
 {
-    @Html.ActionLink("Deposite", "Deposite", "Customer", new { @ID = Model.Balance.Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
-    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @ID = Model.Balance.Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
+    @Html.ActionLink("Deposite", "Deposite", "Customer", new { @ID = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
+    
+    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @ID = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
 
     <h3> Hello ! Mr. @Model.last_name </h3>
-    <h3>Balance:  0 </h3>
-    @*@Model.balance*@
+    <h3>Balance:  @Model.balance </h3>
     <h3>Account Detail : </h3>
 
-    if (Model.Balance.BalanceDetails != null)
+    if (Model.Transactions != null)
     {
         <div id="DataList">
             <div class="row">
                 <div class="col-12">
-                    <div class="text-right mt-lg-3"><mark> records : @Model.Balance.BalanceDetails.Count()</mark></div>
+                    <div class="text-right mt-lg-3"><mark> records : @Model.Transactions.Count()</mark></div>
                     <table class="table table-sm table-condensed table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().trx_Id)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().trx_Id)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().trx_type)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().trx_type)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().amount)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().amount)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().created_by)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().created_by)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().created_dt)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().created_dt)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().desc)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().desc)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => Model.Balance.BalanceDetails.FirstOrDefault().desc_2)
+                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().desc_2)
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach (var item in Model.Balance.BalanceDetails)
+                            @foreach (var item in Model.Transactions)
                             {
                                 <tr>
                                     <td>
