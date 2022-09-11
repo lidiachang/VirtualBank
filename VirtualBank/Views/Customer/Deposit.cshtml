@@ -1,60 +1,52 @@
 ﻿
-@model  VirtualBank.ViewModel.TransferVM
+@model  VirtualBank.ViewModel.DepositVM
 
-<h2>Transfer</h2>
+<h2>Deposit</h2>
 <br>
-
-@using (Html.BeginForm("Transfer", "Customer", FormMethod.Post, new { @id = "SubmitForm", @onsubmit = "submithandeler();" }))
+@using (Html.BeginForm("Deposit", "Customer", FormMethod.Post, new { @id = "SubmitForm", @onsubmit = "submithandeler();" }))
 {
-
     @Html.Hidden("customer_id")
-    @Html.Hidden("trx_type", "T")
     <div class="form-group">
-        <label for="transfer_to" class="col-form-label">Transfer to IBAN:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("transfer_to", null, new { @id = "transfer_to", @class = "form-control input-sm", style = "width:150px", @tabindex = 1 })
-            @Html.ValidationMessageFor(m => m.transfer_to, "", new { @class = "text-danger" })
-        </div>
-
-        @*<label for="amount" class="col-form-label">Amount:</label>*@
-        <div class="input-group" style="width: 200px;">
-            @Html.LabelFor(m => m.amount):
-            @Html.TextBoxFor(m => m.amount, null, new { @class = "form-control input-group-sm numericType ", @tabindex = 2 })
+            @Html.LabelFor(m => m.amount)
+            @Html.TextBoxFor(m => m.amount, null, new { @Id = "amount", @class = "form-control input-group-sm numericType ", @tabindex = 1 })
             @Html.ValidationMessageFor(m => m.amount, "", new { @class = "text-danger" })
         </div>
-
+    </div>
+    <div class="form-group">
         <label for="desc" class="col-form-label">Description:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 3 })
+            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 2 })
 
             @Html.ValidationMessageFor(m => m.desc, "", new { @class = "text-danger" })
         </div>
-
-        <label for="desc_2" class="col-form-label">Description 2:</label>
-        <div class="input-group" style="width: 200px;">
-            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 4 })
+    </div>
+    <div class="form-group">
+        <label for="desc_2" class="col-form-label">Description:</label>
+        <div class="input-group"  style="width: 200px;">
+            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 3 })
 
             @Html.ValidationMessageFor(m => m.desc_2, "", new { @class = "text-danger" })
         </div>
-
     </div>
-
     <div class="form-group form-control-md">
-        <button type="submit" class="btn btn-primary" id="btnsubmit">Confirm</button>
+        <button type="submit" class="btn btn-primary" id="btnsubmit" hidden>Confirm</button>
         @Html.ActionLink("Cancel", "Main", "Customer", new { @ID = Model.customer_id }, new { @id = "btnCancel", @class = "btn btn-danger" })
     </div>
 }
-
 @Html.Partial("_ConfirmModal")
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         /** Initial **/
-        $(document).ready(function () {
-            $("#transfer_to").focus();
-            $('#amount').val("");
 
-          });
+        $(document).ready(function () {
+            $('#amount').val("");
+            $('#amount').focus();
+        });
+
+
         function submithandeler() {
             event.preventDefault();
             if ($('#SubmitForm').validate().form()) {
@@ -69,4 +61,3 @@
         }
     </script>
 }
-

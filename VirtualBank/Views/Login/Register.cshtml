@@ -1,4 +1,10 @@
-﻿
+﻿@model  VirtualBank.ViewModel.RegisterVM
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="~/Scripts/chance.min.js"></script>
+<script type="text/javascript" src="/Scripts/mapp4.js"></script>
+<script type="text/javascript" src="/Scripts/countries.js"></script>
 
 <h2>Register</h2>
 <hr>
@@ -6,38 +12,86 @@
 
 @using (Html.BeginForm("Register", "Login", FormMethod.Post, new { @name = "Form1" }))
 {
-    <div class="row">
-        <label> IBAN</label>
-        @Html.TextBox("IBAN", (string)ViewBag.IBAN, new { @class = "form-control input-sm disabled", @Id = "IBAN", @Style = "width:100px" })
-    </div>
+<div class="row">
+    <label> Country: </label>
+    <select id="country_input" align="middle" onChange="display(this.value);"></select>
 
-    <div class="row">
-        <label> First Name</label>
-        @Html.TextBox("first_name", null, new { @class = "form-control input-sm disabled", @Id = "first_name", @Style = "width:100px" })
-    </div>
+</div>
+                <div class="row">
+                    @Html.Hidden("IBAN")
+                    <label> IBAN</label>
+                    @Html.TextBox("IBAN_Display", null, new { @class = "form-control input-sm ", @Id = "IBAN_Display", @Style = "width:200px", @disabled = "disabled" })
+                </div>
 
-    <div class="row">
-        <label> Last Name</label>
-        @Html.TextBox("last_name", null, new { @class = "form-control input-sm disabled", @Id = "last_name", @Style = "width:100px" })
-    </div>
+                <div class="row">
+                    <label> First Name</label>
+                    @Html.TextBox("first_name", null, new { @class = "form-control input-sm ", @Id = "first_name", @Style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.first_name, "", new { @class = "text-danger" })
+                </div>
 
-    <div class="row">
-        <label> Phone no.</label>
-        @Html.TextBox("phone", null, new { @class = "form-control input-sm disabled", @Id = "phone", @Style = "width:100px" })
-    </div>
-    <div class="row">
-        <label> Password</label>
-        @Html.TextBox("password", null, new { @class = "form-control input-sm", @Id = "password", @Style = "width:100px" })
-    </div>
+                <div class="row">
+                    <label> Last Name</label>
+                    @Html.TextBox("last_name", null, new { @class = "form-control input-sm ", @Id = "last_name", @Style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.last_name, "", new { @class = "text-danger" })
 
-    <div class="row">
-        <label> Double confirmed password</label>
-        @Html.TextBox("db_password", null, new { @class = "form-control input-sm", @Id = "db_password", @Style = "width:100px" })
-    </div>
-    <br>
+                </div>
 
-    <div class="row">
-        <button type="submit" class="btn btn-primary" id="btSave"> Save </button>
-        <button type="button" class="btn btn-danger" id="btRegist"> Clear all </button>
-    </div>
+                <div class="row">
+                    <label> Phone no.</label>
+                    @Html.TextBox("phone", null, new { @class = "form-control input-sm ", @Id = "phone", @Style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.phone, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="row">
+                    <label> Password</label>
+                    @Html.TextBox("passwords", null, new { @class = "form-control input-sm", @Id = "passwords", @Style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.passwords, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="row">
+                    <label> Double confirmed password</label>
+                    @Html.TextBox("dp_password", null, new { @class = "form-control input-sm", @Id = "db_password", @Style = "width:100px" })
+                    @Html.ValidationMessageFor(m => m.dp_password, "", new { @class = "text-danger" })
+
+                </div>
+                <br>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary" id="btSave"> Save </button>
+
+                    @Html.ActionLink("Clear all", "Register", "Login", new { }, new { @id = "btClear", @class = "btn btn-danger" })
+                    @*<button type="button" class="btn btn-danger" id="btClear"> Clear all </button>*@
+                </div>
+ }
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function display() {
+            var e = document.getElementById("country_input").value;
+            //updateUrl("?country=" + e);
+            var country_input = e;
+            var how = buildIbans(country_input);
+            document.getElementById("IBAN").value = how;
+            document.getElementById("IBAN_Display").value = how;
+        }
+
+
+        $('document').ready(function () {
+            $("#first_name").focus();
+            var sel = document.getElementById('country_input');
+            for (var i = 0; i < countries.length; i++) {
+                var opt = document.createElement('option');
+                opt.innerHTML = countries[i].replace(/_/g, " ");
+                opt.value = countries[i];
+                opt.id = "country_" + countries[i];
+                sel.appendChild(opt);
+            }
+            var active_country = "Netherlands";
+
+            var x = document.getElementById("IBAN").value = buildIbans(active_country);
+            document.getElementById("IBAN_Display").value = x;;
+            document.getElementById("country_" + active_country).selected = true;
+        });
+    </script>
 }

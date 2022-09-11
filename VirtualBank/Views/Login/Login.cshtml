@@ -2,20 +2,56 @@
 <hr>
 <br>
 
-@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @name = "Form1" }))
+@using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @id = "Form1" }))
 {
     <div class="row">
         <label> IBAN</label>
-        @Html.TextBox("IBAN", null, new { @class = "form-control input-sm", @Id = "IBAN", @Style = "width:100px" })
+        @Html.TextBox("IBAN", null, new { @class = "form-control input-sm", @Style = "width:200px" })
     </div>
     <div class="row">
         <label> Password</label>
-        @Html.TextBox("password", null, new { @class = "form-control input-sm", @Id = "password", @Style = "width:100px" })
+        @Html.TextBox("passwords", null, new { @class = "form-control input-sm", @Style = "width:100px" })
     </div>
     <br>
-
+    <div>
+        <label id="ErrorMesg" style="color:red">@ViewBag.ErrorMesg</label>
+    </div>
     <div class="row">
-        <button type="submit" class="btn btn-primary" id="btSave" onclick="location.href='@Url.Action("Main", "Customer", new {area="" })'"> LOGIN </button>
+        <button type="submit" class="btn btn-primary" id="btSave"> LOGIN </button>
         <button type="button" class="btn btn-danger" id="btRegist" onclick="location.href='@Url.Action("Register", "Login", new {area="Login" })'"> Register </button>
     </div>
 }
+
+
+<style type="text/css">
+    .error {color: red;}
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        /** Initial **/
+        $(document).ready(function () {
+            $('#IBAN').focus();
+        });
+
+        $("#Form1").validate({
+            rules: {
+                IBAN: {
+                    required: true,
+                    maxlength: 34
+                },
+                passwords: {
+                    required: true
+                }
+            },
+            submitHandler: function (form) {
+                $("#btSave").attr('disabled', 'disabled');
+                form.submit();
+            }
+        });
+
+
+    </script>
+}
+

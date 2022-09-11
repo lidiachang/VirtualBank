@@ -5,11 +5,11 @@
 <br>
 @if (Model != null)
 {
-    @Html.ActionLink("Deposite", "Deposite", "Customer", new { @ID = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
+    @Html.ActionLink("Deposit", "Deposit", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
     
-    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @ID = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
+    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
 
-    <h3> Hello ! Mr. @Model.last_name </h3>
+    <h3> Hello !  @Model.last_name </h3>
     <h3>Balance:  @Model.balance </h3>
     <h3>Account Detail : </h3>
 
