@@ -19,7 +19,7 @@ namespace VirtualBank.ViewModel
         public string trx_type { get; set; }
 
         [Display(Name = "Amount")]
-        [DisplayFormat(DataFormatString = "{0:N0}")]
+        [DisplayFormat(DataFormatString = "{0:N3}")]
         public decimal amount { get; set; }
 
         [Display(Name = "Description")]

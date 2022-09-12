@@ -19,6 +19,7 @@ namespace VirtualBank.ViewModel
 
         public string phone { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:N3}")]
         public decimal balance { get; set; }
 
         public DateTime? last_updated { get; set; }

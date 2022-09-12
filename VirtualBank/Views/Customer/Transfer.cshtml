@@ -12,7 +12,7 @@
     <div class="form-group">
         <label for="transfer_to" class="col-form-label">Transfer to IBAN:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("transfer_to", null, new { @id = "transfer_to", @class = "form-control input-sm", style = "width:150px", @tabindex = 1 })
+            @Html.TextBox("transfer_to", null, new { @id = "transfer_to", @class = "form-control input-sm", style = "width:200px", @tabindex = 1 })
             @Html.ValidationMessageFor(m => m.transfer_to, "", new { @class = "text-danger" })
         </div>
 
@@ -25,14 +25,14 @@
 
         <label for="desc" class="col-form-label">Description:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 3 })
+            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:400px", @tabindex = 3 })
 
             @Html.ValidationMessageFor(m => m.desc, "", new { @class = "text-danger" })
         </div>
 
         <label for="desc_2" class="col-form-label">Description 2:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 4 })
+            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:400px", @tabindex = 4 })
 
             @Html.ValidationMessageFor(m => m.desc_2, "", new { @class = "text-danger" })
         </div>

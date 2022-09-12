@@ -16,7 +16,7 @@
     <div class="form-group">
         <label for="desc" class="col-form-label">Description:</label>
         <div class="input-group" style="width: 200px;">
-            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 2 })
+            @Html.TextBox("desc", null, new { @class = "form-control input-group-sm", style = "width:400px", @tabindex = 2 })
 
             @Html.ValidationMessageFor(m => m.desc, "", new { @class = "text-danger" })
         </div>
@@ -24,7 +24,7 @@
     <div class="form-group">
         <label for="desc_2" class="col-form-label">Description:</label>
         <div class="input-group"  style="width: 200px;">
-            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:150px", @tabindex = 3 })
+            @Html.TextBox("desc_2", null, new { @class = "form-control input-group-sm", style = "width:400px", @tabindex = 3 })
 
             @Html.ValidationMessageFor(m => m.desc_2, "", new { @class = "text-danger" })
         </div>
