@@ -137,6 +137,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -161,16 +162,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Helper\toastr\toastr.min.css" />
-    <Content Include="Helper\toastr\toastr.min.js" />
+    <Content Include="Helper\toastr\build\toastr.min.css" />
+    <Content Include="Helper\toastr\build\toastr.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Helper\toastr\toastr.js.map" />
+    <Content Include="Helper\toastr\build\toastr.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\chance.js" />
     <Content Include="Scripts\chance.min.js" />
     <Content Include="Scripts\countries.js" />
-    <Content Include="Scripts\functions.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -202,10 +202,12 @@
     <Content Include="Views\Customer\Transfer.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Customer\_ConfirmModal.cshtml" />
+    <Content Include="Views\Shared\_toastrfromserver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Security\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

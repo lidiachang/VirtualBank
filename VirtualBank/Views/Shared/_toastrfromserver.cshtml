@@ -1,0 +1,33 @@
+﻿<script type="text/javascript">
+    $(function () {
+        @{
+            var toastrs = TempData.ContainsKey(Toastr.key) ?
+                          (List<Toastr>)TempData[Toastr.key] :
+                                new List<Toastr>();
+
+            if (toastrs.Any())
+            {
+                foreach (var notificacion in toastrs)
+                {
+                    switch (notificacion.type)
+                    {
+                        case "info":
+                            @Html.ToastrInfo(notificacion.message, notificacion.title)
+                            break;
+                            case "success":
+                            @Html.ToastrSuccess(notificacion.message, notificacion.title)
+                            break;
+                             case "warning":
+                            @Html.ToastrWarning(notificacion.message, notificacion.title)
+                            break;
+                             case "error":
+                            @Html.ToastrError(notificacion.message, notificacion.title)
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    });
+</script>

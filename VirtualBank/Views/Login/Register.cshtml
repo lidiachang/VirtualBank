@@ -62,11 +62,14 @@
                     @*<button type="button" class="btn btn-danger" id="btClear"> Clear all </button>*@
                 </div>
  }
-@section Scripts
-{
-    @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+<link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
+
+@section Scripts
+{ @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
+<script type="text/javascript">
+
+@Html.ToastrOptions("toast-top-center", true, false);
         function display() {
             var e = document.getElementById("country_input").value;
             //updateUrl("?country=" + e);
@@ -93,5 +96,5 @@
             document.getElementById("IBAN_Display").value = x;;
             document.getElementById("country_" + active_country).selected = true;
         });
-    </script>
+</script>
 }

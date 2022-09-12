@@ -6,7 +6,7 @@
 @if (Model != null)
 {
     @Html.ActionLink("Deposit", "Deposit", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
-    
+
     @Html.ActionLink("Transfer", "Transfer", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
 
     <h3> Hello !  @Model.last_name </h3>
@@ -83,3 +83,12 @@
         </div>
     }
 }
+
+
+<link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
+<script type="text/javascript">
+@Html.ToastrOptions("toast-top-center", true, false);
+</script>
+    }

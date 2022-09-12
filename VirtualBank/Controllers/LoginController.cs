@@ -13,24 +13,25 @@ using System.Net;
 
 namespace VirtualBank.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         DBcontext db = new DBcontext("DefaultConnection");
         // GET: Login
         public ActionResult Login(string passwords, string IBAN)
         {
+            Session["user_id"] = null;
             // pass verify
             if (!string.IsNullOrEmpty(IBAN))
             {
-                //Verify IBAN & password
                 var customer=db.Customer.Where(x => x.IBAN == IBAN).FirstOrDefault();
                 if (customer != null)
                 {
+                //Verify IBAN & password
                     if (customer.passwords == passwords)
                     {
                         Session["user_id"] = customer.customer_Id;
                        
-                        return RedirectToAction("Main", "Customer", new { ID = customer.customer_Id });
+                        return RedirectToAction("Main", "Customer");
                     }
                     //password fail
                     else
@@ -80,12 +81,14 @@ namespace VirtualBank.Controllers
                     db.Customer.Add(newCustomer);
                     db.SaveChanges();
 
+                    ToastrInfo("Account created. Welcome to Virtual Bank!", "你好!");
                     Session["user_id"] = newCustomer.customer_Id;
-                    return RedirectToAction("Main", "Customer", new { ID = newCustomer.customer_Id });
+                    return RedirectToAction("Main", "Customer");
                 }
-                catch
+                catch(Exception ex)
                 {
                     //fail saving
+                    ToastrError("Exception.", "Error");
                     return View();
                 }
               

@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <label> Password</label>
-        @Html.TextBox("passwords", null, new { @class = "form-control input-sm", @Style = "width:100px" })
+        @Html.Password("passwords", null, new { @class = "form-control input-sm", @Style = "width:100px" })
     </div>
     <br>
     <div>
@@ -24,12 +24,16 @@
 
 
 <style type="text/css">
-    .error {color: red;}
+    .error {
+        color: red;
+    }
 </style>
 
+<link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
+<script type="text/javascript">
+@Html.ToastrOptions("toast-top-center", true, false);
         /** Initial **/
         $(document).ready(function () {
             $('#IBAN').focus();
@@ -52,6 +56,6 @@
         });
 
 
-    </script>
+</script>
 }
 

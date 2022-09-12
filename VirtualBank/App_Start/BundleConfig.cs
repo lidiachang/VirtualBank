@@ -25,6 +25,14 @@ namespace VirtualBank
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            // Toastr
+            bundles.Add(new ScriptBundle("~/bundles/toastr/js").Include(
+                      "~/Helper/toastr/build/toastr.min.js"));
+
+            // Toastr style
+            bundles.Add(new StyleBundle("~/bundles/toastr/css").Include(
+                      "~/Helper/toastr/build/toastr.min.css")); 
+
         }
     }
 }

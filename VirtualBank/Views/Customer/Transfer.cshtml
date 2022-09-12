@@ -41,25 +41,28 @@
 
     <div class="form-group form-control-md">
         <button type="submit" class="btn btn-primary" id="btnsubmit">Confirm</button>
-        @Html.ActionLink("Cancel", "Main", "Customer", new { @ID = Model.customer_id }, new { @id = "btnCancel", @class = "btn btn-danger" })
+        @Html.ActionLink("Cancel", "Main", new { Controller="Customer"}, new { @id = "btnCancel", @class = "btn btn-danger" })
     </div>
 }
 
 @Html.Partial("_ConfirmModal")
+
+<link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
+    @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
+    <script type="text/javascript">
+@Html.ToastrOptions("toast-top-center", true, false);
         /** Initial **/
         $(document).ready(function () {
             $("#transfer_to").focus();
             $('#amount').val("");
 
-          });
+        });
         function submithandeler() {
             event.preventDefault();
             if ($('#SubmitForm').validate().form()) {
                 var num = $("#amount").val();
-                $("#content").html("Deposit amount : $ " + num);
+                $("#content").html("Transfer amount : $ " + num);
                 $("#confirmModal").modal('show');
             }
         };
