@@ -6,24 +6,21 @@ using System.Web.Mvc;
 using VirtualBank.Models;
 using VirtualBank.ViewModel;
 using VirtualBank.DAL;
-
-using System.Net.Http;
-using HtmlAgilityPack;
-using System.Net;
+using VirtualBank.Service;
 
 namespace VirtualBank.Controllers
 {
     public class LoginController : BaseController
     {
-        DBcontext db = new DBcontext("DefaultConnection");
+        CustomerService _service = new CustomerService();
         // GET: Login
         public ActionResult Login(string passwords, string IBAN)
         {
             Session["user_id"] = null;
-            // pass verify
+
             if (!string.IsNullOrEmpty(IBAN))
             {
-                var customer=db.Customer.Where(x => x.IBAN == IBAN).FirstOrDefault();
+                var customer = _service.CheckIBANExist(IBAN);
                 if (customer != null)
                 {
                 //Verify IBAN & password
@@ -49,8 +46,6 @@ namespace VirtualBank.Controllers
                 }
 
             }
-                
-            // not pass
             else
                 return View();
         }
@@ -64,28 +59,14 @@ namespace VirtualBank.Controllers
             }
             else
             {
-                // save user.
                 try
                 {
-                    Customer newCustomer = new Customer()
-                    {
-                        IBAN = customer.IBAN,
-                        first_name = customer.first_name,
-                        last_name = customer.last_name,
-                        phone = customer.phone,
-                        passwords = customer.passwords,
-                        balance = 0,
-                        created_by = customer.last_name,
-                        created_dt = DateTime.Now
-                    };
-                    db.Customer.Add(newCustomer);
-                    db.SaveChanges();
-
+                    int customerID = _service.Register(customer);
                     ToastrInfo("Account created. Welcome to Virtual Bank!", "你好!");
-                    Session["user_id"] = newCustomer.customer_Id;
+                    Session["user_id"] = customerID;
                     return RedirectToAction("Main", "Customer");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     //fail saving
                     ToastrError("Exception.", "Error");

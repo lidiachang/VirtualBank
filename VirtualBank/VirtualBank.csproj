@@ -150,6 +150,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CustomerService.cs" />
     <Compile Include="ViewModel\DepositVM.cs" />
     <Compile Include="ViewModel\MainDisplayVM.cs" />
     <Compile Include="ViewModel\PagerTransactionDetail.cs" />

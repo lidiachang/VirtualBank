@@ -8,7 +8,7 @@
     @Html.Hidden("customer_id")
     <div class="form-group">
         <div class="input-group" style="width: 200px;">
-            @Html.LabelFor(m => m.amount)
+            @Html.LabelFor(m => m.amount):
             @Html.TextBoxFor(m => m.amount, null, new { @Id = "amount", @class = "form-control input-group-sm numericType ", @tabindex = 1 })
             @Html.ValidationMessageFor(m => m.amount, "", new { @class = "text-danger" })
         </div>

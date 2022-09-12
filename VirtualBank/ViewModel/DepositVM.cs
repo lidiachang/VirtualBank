@@ -13,7 +13,7 @@ namespace VirtualBank.ViewModel
 
         [Required]
         [Display(Name = "Amount")]
-        [Range(0, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a value bigger than {1}")]
         public decimal amount { get; set; }
 
         [StringLength(100)]
