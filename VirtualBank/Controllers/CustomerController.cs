@@ -7,6 +7,7 @@ using VirtualBank.Models;
 using VirtualBank.ViewModel;
 using VirtualBank.DAL;
 using System.Data.Entity;
+using VirtualBank.Helpers;
 
 namespace VirtualBank.Controllers
 {
@@ -23,13 +24,54 @@ namespace VirtualBank.Controllers
             else
             {
                 int.TryParse(Session["user_id"].ToString(), out int customerID);
-                Customer customer = db.Customer.Where(x => x.customer_Id == customerID).Include(x => x.Transactions).FirstOrDefault();
-                customer.Transactions = customer.Transactions.OrderByDescending(z => z.Id).ToList();
-                customer.UpdateBalance(customer.IBAN);
 
+                var customer= GetMainDisplay(customerID, 1, 20);
                 return View(customer);
             }
            
+        }
+        public ActionResult _TransactionDetail(int? page, int customerId)
+        {
+            int pageselected = page ?? 1;
+            var ResultList = GetMainDisplay(customerId, pageselected, 20);
+            var objPagination = ResultList.TrxDetail;
+
+            return PartialView("_TransactionDetail", objPagination);
+        }
+        public MainDisplayVM GetMainDisplay(int customerID, int page, int rowPresent)
+        {
+            Customer customer = db.Customer.Where(x => x.customer_Id == customerID).Include(x => x.Transactions).FirstOrDefault();
+            customer.UpdateBalance(customer.IBAN);
+
+            int total = customer.Transactions.Count();
+            List<PagerTransactionDetail> listTrx= (from Trx in customer.Transactions
+                select new PagerTransactionDetail
+                {
+                   trx_Id=Trx.trx_Id,
+                   trx_type=Trx.trx_type,
+                   amount=Trx.amount,
+                   created_by=Trx.created_by,
+                   created_dt=Trx.created_dt,
+                   customer_id=Trx.customer_id,
+                   desc=Trx.desc,
+                   desc_2=Trx.desc_2,
+                   Id=Trx.Id,
+                   total_count= total
+                }).OrderByDescending(x => x.trx_Id).Skip((page - 1) * rowPresent).Take(rowPresent).ToList();
+
+            MainDisplayVM rtn = new MainDisplayVM()
+            {
+                customer_Id = customer.customer_Id,
+                balance = customer.balance,
+                first_name = customer.first_name,
+                last_name = customer.last_name,
+                last_updated = customer.updated_dt == null ? customer.created_dt : customer.updated_dt,
+                last_updated_by = customer.updated_by == null ? customer.created_by : customer.updated_by,
+                IBAN = customer.IBAN,
+                phone = customer.phone,
+                TrxDetail = new Pager<PagerTransactionDetail>(listTrx, page, rowPresent,total)
+            };
+            return rtn;
         }
         public ActionResult Deposit(DepositVM ts)
         {

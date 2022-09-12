@@ -1,94 +1,54 @@
 ﻿@*@using HTMLHelper.Helper*@
-@model VirtualBank.Models.Customer
+@model VirtualBank.ViewModel.MainDisplayVM
 <h2>Main</h2>
-<hr>
-<br>
+<hr />
 @if (Model != null)
 {
-    @Html.ActionLink("Deposit", "Deposit", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
+    <div class="row">
+        <div class="col-4">
+            @Html.ActionLink("Deposit", "Deposit", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnDeposite", @class = "btn btn-primary" })
 
-    @Html.ActionLink("Transfer", "Transfer", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
-
-    <h3> Hello !  @Model.last_name </h3>
-    <h3>Balance:  @Model.balance </h3>
-    <h3>Account Detail : </h3>
-
-    if (Model.Transactions != null)
+            @Html.ActionLink("Transfer", "Transfer", "Customer", new { @customer_id = Model.customer_Id }, new { @id = "btnTransfer", @class = "btn btn-primary" })
+        </div>
+    </div>
+        <h3>Hello !  @Model.last_name </h3>
+        <h3>Balance :  @Model.balance </h3>
+        <h3>Account Detail : </h3>
+    if (Model.TrxDetail != null)
     {
         <div id="DataList">
-            <div class="row">
-                <div class="col-12">
-                    <div class="text-right mt-lg-3"><mark> records : @Model.Transactions.Count()</mark></div>
-                    <table class="table table-sm table-condensed table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().trx_Id)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().trx_type)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().amount)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().created_by)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().created_dt)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().desc)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => Model.Transactions.FirstOrDefault().desc_2)
-                                </th>
-                            </tr>
-                        </thead>
 
-                        <tbody>
-                            @foreach (var item in Model.Transactions)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.trx_Id)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.trx_type)
-                                        @*@Resources.Resource.ResourceManager.GetString("" + @Html.DisplayFor(modelItem => item.trace))*@
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.amount)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.created_by)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.created_dt)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.desc)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.desc_2)
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+            <div id="DetailList">
+                @Html.Partial("_TransactionDetail", Model.TrxDetail)
             </div>
 
         </div>
     }
+
 }
 
 
-<link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
-<script type="text/javascript">
+        <link href="~/Helper/toastr/build/toastr.min.css" rel="stylesheet" />
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval", "~/bundles/toastr/js")
+            <script type="text/javascript">
 @Html.ToastrOptions("toast-top-center", true, false);
-</script>
-    }
+              function ReloadDetailList(pag) {
+
+                $.ajax({
+                    url: '@Url.Action("_TransactionDetail", "Customer")',
+                    data: {
+                        page: pag,
+                        customerId: @Model.customer_Id
+                    },
+                    type: 'get',
+                    cache: false,
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#DetailList').html(data);
+
+                    }
+                });
+            }
+            </script>
+        }

@@ -2,7 +2,7 @@
 @model  VirtualBank.ViewModel.DepositVM
 
 <h2>Deposit</h2>
-<br>
+<hr>
 @using (Html.BeginForm("Deposit", "Customer", FormMethod.Post, new { @id = "SubmitForm", @onsubmit = "submithandeler();" }))
 {
     @Html.Hidden("customer_id")
